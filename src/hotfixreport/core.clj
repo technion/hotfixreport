@@ -39,5 +39,5 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (runreport "../scanout.txt")
+  (spit "parsed.tsv" (runreport "../scanout.txt") )
   (println "Creating parsed report"))
