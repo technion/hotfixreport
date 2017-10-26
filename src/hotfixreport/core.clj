@@ -5,14 +5,13 @@
 (require '[clojure-csv.core :as csv])
 
 (def fixes
-  [ "KB4041676", "KB4041691", "KB4041678", "KB4041681", "KB4041686" ]
-)
+  [ "KB4041676", "KB4041691", "KB4041678", "KB4041681", "KB4041686" ])
 
 (defn isvulnerable
+   "Removes a line where a fix kb exists in column 4"
    [kb]
    (not (some
-     #(str/includes? (nth kb 4) %) fixes))
-)
+     #(str/includes? (nth kb 4) %) fixes)))
 
 (defn get-data
   "Drop the first header line, and parse the tab delimters"
@@ -37,7 +36,6 @@
          (parsereport inputfile)))))
 
 (defn -main
-  "I don't do a whole lot ... yet."
   [& args]
   (spit "parsed.tsv" (runreport "../scanout.txt") )
   (println "Creating parsed report"))
