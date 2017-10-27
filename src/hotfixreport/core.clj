@@ -21,9 +21,9 @@
       (str/split (slurp input) #"\n"))))
 
 (defn parsereport
-  [inputfile]
-  (->> (get-data inputfile)
-   (filter isvulnerable)
+  [input]
+  (->> 
+   (filter isvulnerable input)
    (map (fn [[id job fqdn garbage kb]]
      (zipmap [:host :domain]  
        (str/split fqdn #"\." 2))))))
@@ -33,7 +33,7 @@
   (csv/write-csv 
     (into [] 
       (map (fn [{host :host domain :domain}] [host domain])
-         (parsereport inputfile)))))
+         (parsereport (get-data inputfile))))))
 
 (defn -main
   [& args]
